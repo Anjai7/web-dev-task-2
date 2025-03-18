@@ -2,103 +2,18 @@
 <html>
 <head>
     <title>Simple To-Do List</title>
-    <style>
-        body {
-            font-family: Arial;
-            max-width: 500px;
-            margin: 20px auto;
-            padding: 20px;
-        }
-        #task-input {
-            width: 200px;
-            padding: 8px;
-            font-size: 16px;
-        }
-        #add-btn {
-            padding: 8px 15px;
-            background-color: lightblue;
-            border: none;
-            cursor: pointer;
-        }
-        .task-item {
-            margin: 10px 0;
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-        .completed {
-            text-decoration: line-through;
-            color: gray;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h2>My To-Do List</h2>
     
     <form id="todo-form">
         <input type="text" id="task-input" placeholder="Add new task...">
-        <button type="button" id="add-btn">Add</button>
+        <button type="button" id="add-btn">Add Task</button>
     </form>
 
     <div id="task-list"></div>
 
-    <script>
-        // Get elements
-        const taskInput = document.getElementById('task-input');
-        const addBtn = document.getElementById('add-btn');
-        const taskList = document.getElementById('task-list');
-
-        // Load saved tasks
-        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-        
-        // Show tasks
-        function showTasks() {
-            taskList.innerHTML = '';
-            for (let i = 0; i < tasks.length; i++) {
-                const task = tasks[i];
-                const taskDiv = document.createElement('div');
-                taskDiv.className = 'task-item' + (task.completed ? ' completed' : '');
-                
-                taskDiv.innerHTML = `
-                    <span>${task.text}</span>
-                    <button onclick="toggleTask(${i})">✓</button>
-                    <button onclick="deleteTask(${i})">X</button>
-                `;
-                taskList.appendChild(taskDiv);
-            }
-        }
-
-        // Add new task
-        addBtn.onclick = function() {
-            const text = taskInput.value.trim();
-            if (text) {
-                tasks.push({ text: text, completed: false });
-                taskInput.value = '';
-                saveTasks();
-                showTasks();
-            }
-        };
-
-        // Toggle completed
-        function toggleTask(index) {
-            tasks[index].completed = !tasks[index].completed;
-            saveTasks();
-            showTasks();
-        }
-
-        // Delete task
-        function deleteTask(index) {
-            tasks.splice(index, 1);
-            saveTasks();
-            showTasks();
-        }
-
-        // Save to local storage
-        function saveTasks() {
-            localStorage.setItem('tasks', JSON.stringify(tasks));
-        }
-
-        // First load
-        showTasks();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
